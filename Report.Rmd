@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-This finished assignment was described in multiple parts. Answers to all the questions were detailed below. This is a single R markdown document that can be processed by knitr and be transformed into an HTML file.
+This is the finished assignment described in multiple parts. Answers to all the questions were detailed below.The 9 items were also commented inside the R code blocks. This is a single R markdown document that can be processed by knitr and be transformed into an HTML file.
 
 
 ## Loading and preprocessing the data
@@ -21,14 +21,13 @@ library(tidyverse)
 activity <- read.csv("activity.csv")
 
 library("lubridate")
-# Process/transform the data (if necessary) into a format suitable 
+# 1. Code for reading in the dataset and/or processing the data 
 activity2 <- mutate(activity, ymd(date))
 names(activity2)[4] <- "date2" 
-head(activity2)
 ```
 
 ## What is mean total number of steps taken per day?
-# What is mean total number of steps taken per day?
+
 
 ```{r echo= TRUE}
 TotalStepsPerDay <- tapply(activity$steps, activity$date, sum, na.rm=TRUE)
@@ -39,40 +38,23 @@ Make a histogram of the total number of steps taken each day
 
 
 ```{r echo = TRUE}
+#2.Histogram of the total number of steps taken each day
 qplot(TotalStepsPerDay, xlab='Total Steps Per day', ylab='Frequency', binwidth=400)
 ```
 
 
-# Calculate and report the mean and median of the total number of steps taken per day
-
-
-
 ## What is the average daily activity pattern?
 
-# What is the average daily activity pattern?
+
 ```{r echo = TRUE}
-
-
-stepsByDayMean <- mean(stepsByDay)
-stepsByDayMedian <- median(stepsByDay)
-
-
-
+#3. Mean and median number of steps taken each day
+# Mean
+stepsByDayMean <- mean(TotalStepsPerDay)
+stepsByDayMean
+# Meidan
+stepsByDayMedian <- median(TotalStepsPerDay)
+stepsByDayMedian
 ```
-
-
-
-
-
-
-```
-
-
-
-
-
-
-
 
 
 Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis). 
@@ -81,9 +63,10 @@ Which 5-minute interval, on average across all the days in the dataset, contains
 
 ```{r}
 averageStepsPerTimeBlock <- aggregate(x=list(meanSteps=activity$steps), by=list(interval=activity$interval), FUN=mean, na.rm=TRUE)
-#Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
 mostSteps <- which.max(averageStepsPerTimeBlock$meanSteps)
 timeMostSteps <-  gsub("([0-9]{1,2})([0-9]{2})", "\\1:\\2", averageStepsPerTimeBlock[mostSteps,'interval'])
+
 ```
 
 ## Imputing missing values
@@ -97,9 +80,11 @@ Devise a strategy for filling in all of the missing values in the dataset. The s
 Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 
+Calculate and report the total number of missing values in the dataset
+
 ```{r}
 
-#Calculate and report the total number of missing values in the dataset
+
 numMissingValues <- length(which(is.na(activity$steps)))
 
 ```
@@ -155,9 +140,6 @@ qplot(stepsByDayImputed, xlab='Total steps per day (Imputed)', ylab='Frequency u
 stepsByDayMeanImputed <- mean(stepsByDayImputed)
 stepsByDayMedianImputed <- median(stepsByDayImputed)
 
-
-
-
 ```
 
 
@@ -184,25 +166,6 @@ ggplot(averagedActivityDataImputed, aes(interval, steps)) +
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
