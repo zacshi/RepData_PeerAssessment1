@@ -27,9 +27,8 @@ names(activity2)[4] <- "date2"
 ## B: What is mean total number of steps taken per day?
 
 ```{r echo= TRUE, warning=FALSE, message=FALSE }
+# Calculate the total number of steps taken per day
 TotalStepsPerDay <- tapply(activity$steps, activity$date, sum, na.rm=TRUE)
-# report the total steps per day
-TotalStepsPerDay
 ```
 
 
@@ -42,17 +41,6 @@ qplot(TotalStepsPerDay, xlab='Total Steps Per Day', ylab='Frequency', binwidth=6
 
 
 ## C: What is the average daily activity pattern?
-
-```{r echo = TRUE}
-# Mean and median number of steps taken each day
-# Mean
-stepsByDayMean <- mean(TotalStepsPerDay)
-stepsByDayMean
-# Median
-stepsByDayMedian <- median(TotalStepsPerDay)
-stepsByDayMedian
-```
-
 
 Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis). 
 
@@ -78,9 +66,27 @@ timeMostSteps
 
 ```
 
+Calculate and report the mean and median of the total number of steps taken per day
+
+```{r echo = TRUE}
+# Mean
+stepsByDayMean <- mean(TotalStepsPerDay)
+stepsByDayMean
+# Median
+stepsByDayMedian <- median(TotalStepsPerDay)
+stepsByDayMedian
+```
+
+
+
+
+
+
 ## D: Imputing missing values
 
-Note that there are a number of days/intervals where there are missing values (coded as 𝙽𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with 𝙽𝙰s)
+Note that there are a number of days/intervals where there are missing values. The���𝙰). The presence of missing days may introduce bias into some calculations or summaries of the data. Calculate and report the total number of missing values in the dataset. 
+
+
 I used the impute and mean functions to create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```{r echo=TRUE, warning=FALSE, message=FALSE }
@@ -95,10 +101,10 @@ activityImputed <- activity
 activityImputed$steps <- impute(activity$steps, fun=mean) # computing the (single) imputed value from the non-NAs
 ```
 
-
+Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
 
 ```{r echo = TRUE, warning=FALSE, message=FALSE }
-# Get answers from the mutated dataset
+# Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day
 stepsByDayImputed <- tapply(activityImputed$steps, activityImputed$date, sum)
 qplot(stepsByDayImputed, xlab='Total Steps Per Day from Imputed Dataset', ylab='Frequency', binwidth=600)
 
@@ -108,12 +114,12 @@ qplot(stepsByDayImputed, xlab='Total Steps Per Day from Imputed Dataset', ylab='
 #Median
 (stepsByDayMedianImputed <- median(stepsByDayImputed))
 ```
-Results from the imputed data are different from the first part of this assignment. Imputing missing data made the mean and median the same. 
+Results from the imputed data are different from the first part of this assignment. 
 
 
 ## E: Are there differences in activity patterns between weekdays and weekends?
 
-
+Create a new factor variable in the dataset with two levels – “weekdays” and “weekends” 
 
 ```{r echo = TRUE, warning=FALSE, message=FALSE }
 # Create a new factor variable in the dataset with two levels – “weekdays” and “weekends” 
@@ -124,9 +130,9 @@ ggplot(averagedActivityImputed, aes(interval, steps)) +
     geom_line() + 
     facet_grid(. ~ Type) +
     xlab("5-minute interval") + 
-    ylab("avarage number of steps") +
+    ylab("Avarage Number of Steps") +
     theme(plot.title = element_text(hjust = 0.5)) +
-    labs(title = "Comparison of the parterns between weekdays and weekends")
+    labs(title = "Comparison of the Parterns between Weekdays and Weekends")
 ```
 
 
