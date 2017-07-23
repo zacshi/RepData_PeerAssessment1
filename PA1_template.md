@@ -101,15 +101,9 @@ stepsByDayMedian
 
 
 
-
-
-
 ## D: Imputing missing values
 
-Note that there are a number of days/intervals where there are missing values. TheÌπΩùô∞). The presence of missing days may introduce bias into some calculations or summaries of the data. Calculate and report the total number of missing values in the dataset. 
-
-
-I used the impute and mean functions to create a new dataset that is equal to the original dataset but with the missing data filled in.
+The presence of missing days may introduce bias into some calculations or summaries of the data. Calculate and report the total number of missing values in the dataset. I used the impute and mean functions to create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 
 ```r
@@ -162,6 +156,8 @@ qplot(stepsByDayImputed, xlab='Total Steps Per Day from Imputed Dataset', ylab='
 ```
 ## [1] 10766.19
 ```
+
+
 Results from the imputed data are different from the first part of this assignment. 
 
 
