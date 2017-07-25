@@ -19,8 +19,6 @@ This is a single R markdown document that can be processed by knitr and be trans
 library("tidyverse")
 library("lubridate")
 activity <- read.csv("./activity/activity.csv")
-activity2 <- mutate(activity, ymd(date))
-names(activity2)[4] <- "date2" 
 ```
 
 ## B: What is mean total number of steps taken per day?
